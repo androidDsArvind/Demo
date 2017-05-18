@@ -1,0 +1,116 @@
+//smallmoney
+//numeric(7,2)
+//tinyint, smallint, int
+//varchar(0-8000)
+//datetime
+
+
+create table [Client]
+(
+ Id int primary key identity,
+ FullName varchar(60),
+ Email varchar(60),
+ Password varchar(60),
+ CompanyName varchar(60),
+ Address varchar(240),
+ PhoneNumber int,
+ DateOfBirth datetime,
+ UTR varchar(60),
+ NI varchar(60),
+ CreatedOn datetime,
+ UpdatedOn datetime
+)
+go
+
+create table [Customer]
+(
+ Id int primary key identity,
+ ClientId int references Client(Id),
+ CustomerName varchar(60),
+ CompanyName varchar(60),
+ Email varchar(60),
+ PhoneNumber int,
+ Address varchar(120),
+ PostalCode varchar(60),
+ Fax varchar(60),
+ CreatedOn datetime,
+ UpdatedOn datetime,
+ Location Geography
+)
+go
+
+
+
+create table [Invoice]
+(
+ Id int primary key identity,
+ InvoiceNumber int primary key identity,
+ ClientId int references Client(Id),
+ CustomerId int references Customer(Id),
+ ItemId int references InvoiceItem(Id),
+ VatId int references VAT(Id),
+ DateTime datetime,
+ DueDate datetime,
+ Type varchar(60),
+ IsCustomer boolean,
+ IsPaid boolean,
+ SupplierName varchar(60),
+ FilePath varchar(60),
+ FileType varchar(60),
+ CreatedOn datetime,
+ UpdatedOn datetime,
+ 
+ 
+)
+go
+
+
+create table [InvoiceItem]
+(
+ Id int primary key identity,
+ InvoiceId int references Invoice(Id)
+ ItemName varchar(60),
+ Qty int,
+ UnitPrice int,
+ CreatedOn datetime,
+ UpdatedOn datetime
+ 
+)
+go
+
+ create table [VAT]
+ (
+ Id int primary key identity,
+ value varchar(60),
+ CreatedOn datetime,
+ UpdatedOn datetime
+ 
+ )
+ 
+ create table [UserSettings]	
+ (
+ Id int primary key identity,
+ ClientId int references Client(Id),
+ UserName varchar(60),
+ PaymentTerms varchar(240),
+ Notes varchar(240),
+ TermsAndConditions varchar(240),
+ LogoPath varchar(120),
+ CreatedOn datetime,
+ UpdatedOn datetime
+ 
+ )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
